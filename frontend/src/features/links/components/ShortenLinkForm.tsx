@@ -1,8 +1,15 @@
 import React, {useState} from 'react';
-import {Button, Grid, TextField, Typography} from "@mui/material";
+import {useSelector} from "react-redux";
+import {useAppDispatch} from "../../../app/hooks";
+import {createShortLink} from "../linksThunks";
+import {Grid, TextField, Typography} from "@mui/material";
+import {LoadingButton} from "@mui/lab";
+import {selectCreateLoading} from "../linksSlice";
 import {LinkMutation} from "../../../types";
 
 const ShortenLinkForm = () => {
+    const dispatch = useAppDispatch();
+    const createLoading = useSelector(selectCreateLoading)
     const [link, setLink] = useState<LinkMutation>({
         url: '',
     });
@@ -14,7 +21,7 @@ const ShortenLinkForm = () => {
 
     const submitFormHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(link);
+        dispatch(createShortLink(link));
     };
 
     return (
@@ -34,13 +41,14 @@ const ShortenLinkForm = () => {
                     />
                 </Grid>
                 <Grid item xs>
-                    <Button
+                    <LoadingButton
                         type="submit"
                         color="primary"
                         variant="contained"
+                        loading={createLoading}
                     >
                         Shorten!
-                    </Button>
+                    </LoadingButton>
                 </Grid>
             </Grid>
         </form>
