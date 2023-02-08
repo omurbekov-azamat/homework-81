@@ -39,4 +39,20 @@ linksRouter.post('/', async (req, res) => {
     }
 });
 
+linksRouter.get('/:shortUrl', async (req, res) => {
+    try {
+        const result = await Link.find({shortUrl: req.params.shortUrl});
+
+        if (!result) {
+            return res.sendStatus(404);
+        }
+
+        const originalUrl = result[0].originalUrl;
+
+        return res.status(301).redirect(originalUrl);
+    } catch (e) {
+        return res.sendStatus(500);
+    }
+});
+
 export default linksRouter;
