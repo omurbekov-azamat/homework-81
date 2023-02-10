@@ -22,6 +22,9 @@ const ShortenLinkForm = () => {
     const submitFormHandler = (e: React.FormEvent) => {
         e.preventDefault();
         dispatch(createShortLink(link));
+        setLink({
+            url: '',
+        });
     };
 
     return (
