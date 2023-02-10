@@ -14,7 +14,7 @@ const ShortenLink = () => {
                         Your link now looks like this
                     </Typography>
                     <Link href={item.originalUrl}>
-                        {apiUrl + '/' + item.shortUrl}
+                        {apiUrl + '/links/' + item.shortUrl}
                     </Link>
                 </Box>
             ): <h5>You have to write your link!</h5>}
